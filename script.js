@@ -9,6 +9,7 @@ const CONTAINER = document.querySelector(".container");
 const autorun = async () => {
   const movies = await fetchMovies();
   renderMovies(movies.results);
+  //console.log(movies)
 };
 
 // Don't touch this function please
@@ -80,3 +81,56 @@ const renderMovie = (movie) => {
 };
 
 document.addEventListener("DOMContentLoaded", autorun);
+//There is the navebar it is done  and the  dropdown list it is done but we ned to add some details
+const divNavBar = document.createElement('div');
+divNavBar.innerHTML = `
+<header>
+ <div class="container2">
+  <img src="pics/pirateflix.png" alt="logo" class="logo">
+  <nav>
+  <ul>
+     <li id='home'> <a href= "#">Home</a> </li>
+     <li> <a href= "#">Movies</a>
+     <ul class="dropdown">
+    <li id='li1'> <a href= "#"> </a> </li>
+    <li id='li1'> <a href= "#"> </a> </li>
+    <li id='li1'> <a href= "#"> </a> </li>
+    <li id='li1'> <a href= "#"> </a> </li>
+    <li id='li1'> <a href= "#"> </a> </li>
+</ul> 
+     </li>
+     <li id='actors' > <a href= "#">Actor List </a>
+     <ul class="dropdown">
+     <li id='li1'> <a href= "#"> </a> </li>
+     <li id='li1'> <a href= "#"> </a> </li>
+     <li id='li1'> <a href= "#"> </a> </li>
+     <li id='li1'> <a href= "#"> </a> </li>
+     <li id='li1'> <a href= "#"> </a> </li>
+ </ul> 
+     </li>
+     <li> <a href= "#">About</a> </li>
+     <li id='filter'> 
+     <a href= "#">Filter</a> 
+      <ul class="dropdown">
+      <li id='li1'> <a href= "#"> </a> </li>
+      <li id='li1'> <a href= "#"> </a> </li>
+      <li id='li1'> <a href= "#"> </a> </li>
+      <li id='li1'> <a href= "#"> </a> </li>
+      <li id='li1'> <a href= "#"> </a> </li>
+ </ul>
+ </li>
+     <li> <form id="form">
+        <input type="text" placeholder="search" id="search"
+        class="search">
+    </form></li>
+    
+   </ul>
+  </nav>
+ </div>
+</header>
+`
+document.body.prepend(divNavBar);
+
+//There is the event listener for home button whene you press on it it will refresh the page 
+const Home = document.getElementById('home');
+Home.addEventListener('click',function(){location.reload()} );
