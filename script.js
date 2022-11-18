@@ -25,6 +25,109 @@ const movieDetails = async (movie) => {
   renderMovie(movieRes);
 };
 
+
+const fetchPopularMovies = async () => {
+  const url = constructUrl(`movie/popular`);
+  const res = await fetch(url);
+  const data = await res.json();
+  renderpopularmovies(data.results)
+  //console.log(data.results);
+}
+
+const renderpopularmovies = (movies) =>{
+  CONTAINER.innerHTML= ""
+  movies.map((movie)=>
+  {const movies = document.createElement("div");
+ console.log(movie);
+  movies.innerHTML = `
+  <div>
+  <img src="${BACKDROP_BASE_URL + movie.backdrop_path}">
+  </div>
+  <h3>${movie.title}</h3>
+  `
+  movies.addEventListener("click", () => {
+    movieDetails(movie);
+  });
+  CONTAINER.appendChild(movies);
+  })
+}
+
+const topMovie = async () => {
+  const url = constructUrl(`movie/top_rated`);
+  const res = await fetch(url);
+  const data = await res.json();
+  rendTopmovies(data.results);
+  //console.log(data.results);
+}
+
+const rendTopmovies = (movies) =>{
+  CONTAINER.innerHTML= ""
+  movies.map((movie)=>
+  {const movies = document.createElement("div");
+ //console.log(movie);
+  movies.innerHTML = `
+  <div>
+  <img src="${BACKDROP_BASE_URL + movie.backdrop_path}">
+  </div>
+  <h3>${movie.title}</h3>
+  
+  `;
+  movies.addEventListener("click", () => {
+    movieDetails(movie);
+  });
+  CONTAINER.appendChild(movies);
+  })
+}
+
+const upComing = async () => {
+  const url = constructUrl(`movie/upcoming`);
+  const res = await fetch(url);
+  const data = await res.json();
+  rendTopmovies(data.results);
+  //console.log(data.results);
+}
+
+const upComingMovies = (movies) => {
+  CONTAINER.innerHTML=""
+  movies.map((movie)=> 
+  {const movies = document.createElement("div");
+  movies.innerHTML = `
+  <div>
+  <img src="${BACKDROP_BASE_URL + movie.backdrop_path}">
+  </div>
+  <h3>${movie.title}</h3>
+  `;
+  movies.addEventListener("click", () => {
+    movieDetails(movie);
+  });
+}
+  )}
+
+const nawPlaying = async () => {
+  const url = constructUrl(`movie/now_playing`);
+  const res = await fetch(url);
+  const data = await res.json();
+  rendTopmovies(data.results);
+  //console.log(data.results);
+}
+
+const nowplaying = (movies) => {
+  CONTAINER.innerHTML=""
+  movies.map((movie)=> 
+  {const movies = document.createElement("div");
+  movies.innerHTML = `
+  <div>
+  <img src="${BACKDROP_BASE_URL + movie.backdrop_path}">
+  </div>
+  <h3>${movie.title}</h3>
+  `;
+  movies.addEventListener("click", () => {
+    movieDetails(movie);
+  });
+}
+  )}
+
+
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
   const url = constructUrl(`movie/now_playing`);
@@ -53,7 +156,7 @@ const renderMovies = (movies) => {
     });
     CONTAINER.appendChild(movieDiv);
   });
-  console.log(movies);
+
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
@@ -92,11 +195,11 @@ divNavBar.innerHTML = `
      <li id='home'> <a href= "#">Home</a> </li>
      <li> <a href= "#">Movies</a>
      <ul class="dropdown">
-    <li id='li1'> <a href= "#"> </a> </li>
-    <li id='li1'> <a href= "#"> </a> </li>
-    <li id='li1'> <a href= "#"> </a> </li>
-    <li id='li1'> <a href= "#"> </a> </li>
-    <li id='li1'> <a href= "#"> </a> </li>
+    <li id='li1'> <a id="pop" href= "#"> Popular Movies </a> </li>
+    <li id='li1'> <a id="top_movie" href= "#"> top movies </a> </li>
+    <li id='li1'> <a id="up" href= "#">Up Coming </a> </li>
+    <li id='li1'> <a id="naw" href= "#">now playing </a> </li>
+    
 </ul> 
      </li>
      <li id='actors' > <a href= "#">Actor List </a>
@@ -134,3 +237,15 @@ document.body.prepend(divNavBar);
 //There is the event listener for home button whene you press on it it will refresh the page 
 const Home = document.getElementById('home');
 Home.addEventListener('click',function(){location.reload()} );
+
+const pop = document.getElementById("pop");
+pop.addEventListener('click',fetchPopularMovies);
+
+const topmovie = document.getElementById("top_movie");
+top_movie.addEventListener('click',topMovie); 
+
+const moviesUpComing = document.getElementById("up");
+up.addEventListener('click',upComing); 
+
+const nawplAying = document.getElementById("naw");
+naw.addEventListener('click',nawPlaying);
