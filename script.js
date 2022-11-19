@@ -29,9 +29,8 @@ const fetchPopularMovies = async () => {
   const res = await fetch(url);
   const data = await res.json();
 
-  renderpopularmovies(data.results)
-}
-
+  renderpopularmovies(data.results);
+};
 
 const renderpopularmovies = (movies) => {
   CONTAINER.innerHTML = '';
@@ -85,10 +84,7 @@ const upComing = async () => {
   const res = await fetch(url);
   const data = await res.json();
   rendTopmovies(data.results);
-
-
-}
-
+};
 
 const upComingMovies = (movies) => {
   CONTAINER.innerHTML = '';
@@ -111,9 +107,7 @@ const nawPlaying = async () => {
   const res = await fetch(url);
   const data = await res.json();
   rendTopmovies(data.results);
-
-}
-
+};
 
 const nowplaying = (movies) => {
   CONTAINER.innerHTML = '';
@@ -129,6 +123,10 @@ const nowplaying = (movies) => {
       movieDetails(movie);
     });
   });
+};
+const actorDetails = async (actor) => {
+  const actorRes = await fetchPopularActor(actor.id);
+  renderActorDetail(actorRes);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -156,11 +154,11 @@ const fetchPopularPeople = async () => {
   renderActors(await res.json());
 };
 
-const fetchPerson = async (personId) => {
-  const url = constructUrl(`person/${personId}`);
-  const res = await fetch(url);
-  return res.json();
-};
+// const fetchPerson = async (personId) => {
+//   const url = constructUrl(`person/${personId}`);
+//   const res = await fetch(url);
+//   return res.json();
+// };
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
@@ -223,6 +221,7 @@ const renderActors = (actors) => {
   });
 };
 const renderActorDetail = (actor) => {
+  console.log(actor);
   CONTAINER.innerHTML = '';
   CONTAINER.classList.add('container');
   const actorDiv = document.createElement('div');
@@ -302,7 +301,6 @@ up.addEventListener('click', upComing);
 
 const nawplAying = document.getElementById('naw');
 naw.addEventListener('click', nawPlaying);
-
 
 const actorList = document.querySelector('#actors');
 actorList.addEventListener('click', fetchPopularPeople);
