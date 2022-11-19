@@ -178,12 +178,18 @@ divNavBar.innerHTML = `
 `;
 document.body.prepend(divNavBar);
 
-//There is the event listener for home button whene you press on it it will refresh the page
-const Home = document.getElementById('home');
 Home.addEventListener('click', function () {
   location.reload();
 });
 
-//There is the event listener for actors button
-const Actors = document.querySelector('#actors');
-Actors.addEventListener('click', fetchPopularPeople);
+const pop = document.getElementById('pop');
+pop.addEventListener('click', fetchPopularMovies);
+
+const topmovie = document.getElementById('top_movie');
+top_movie.addEventListener('click', topMovie);
+
+const moviesUpComing = document.getElementById('up');
+up.addEventListener('click', upComing);
+
+const nawplAying = document.getElementById('naw');
+naw.addEventListener('click', nawPlaying);
