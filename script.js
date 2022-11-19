@@ -9,7 +9,6 @@ const CONTAINER = document.querySelector('.container');
 const autorun = async () => {
   const movies = await fetchMovies();
   renderMovies(movies.results);
-  //console.log(movies)
 };
 
 // Don't touch this function please
@@ -24,18 +23,15 @@ const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   renderMovie(movieRes);
 };
-const actorDetails = async (actor) => {
-  const actorRes = await fetchPopularActor(actor.id);
-  renderActorDetail(actorRes);
-};
 
 const fetchPopularMovies = async () => {
   const url = constructUrl(`movie/popular`);
   const res = await fetch(url);
   const data = await res.json();
-  renderpopularmovies(data.results);
-  //console.log(data.results);
-};
+
+  renderpopularmovies(data.results)
+}
+
 
 const renderpopularmovies = (movies) => {
   CONTAINER.innerHTML = '';
@@ -60,6 +56,7 @@ const topMovie = async () => {
   const res = await fetch(url);
   const data = await res.json();
   rendTopmovies(data.results);
+
   //console.log(data.results);
 };
 
@@ -69,6 +66,7 @@ const rendTopmovies = (movies) => {
     const movies = document.createElement('div');
     //console.log(movie);
     movies.innerHTML = `
+
   <div>
   <img src="${BACKDROP_BASE_URL + movie.backdrop_path}">
   </div>
@@ -87,8 +85,10 @@ const upComing = async () => {
   const res = await fetch(url);
   const data = await res.json();
   rendTopmovies(data.results);
-  //console.log(data.results);
-};
+
+
+}
+
 
 const upComingMovies = (movies) => {
   CONTAINER.innerHTML = '';
@@ -111,8 +111,9 @@ const nawPlaying = async () => {
   const res = await fetch(url);
   const data = await res.json();
   rendTopmovies(data.results);
-  //console.log(data.results);
-};
+
+}
+
 
 const nowplaying = (movies) => {
   CONTAINER.innerHTML = '';
@@ -261,18 +262,16 @@ divNavBar.innerHTML = `
 </ul> 
      </li>
      <li id='actors' > <a href= "#">Actor List </a>
+     <ul class="dropdown">
+     <li id='li1'> <a href= "#"> </a> </li>
+     <li id='li1'> <a href= "#"> </a> </li>
+     <li id='li1'> <a href= "#"> </a> </li>
+     <li id='li1'> <a href= "#"> </a> </li>
+     <li id='li1'> <a href= "#"> </a> </li>
+ </ul> 
      </li>
      <li> <a href= "#">About</a> </li>
-     <li id='filter'> 
-     <a href= "#">Filter</a> 
-      <ul class="dropdown">
-      <li id='li1'> <a href= "#"> </a> </li>
-      <li id='li1'> <a href= "#"> </a> </li>
-      <li id='li1'> <a href= "#"> </a> </li>
-      <li id='li1'> <a href= "#"> </a> </li>
-      <li id='li1'> <a href= "#"> </a> </li>
- </ul>
- </li>
+     <li id='filter'> <a href="#"> genra </a> </li>
      <li> <form id="form">
         <input type="text" placeholder="search" id="search"
         class="search">
@@ -303,6 +302,7 @@ up.addEventListener('click', upComing);
 
 const nawplAying = document.getElementById('naw');
 naw.addEventListener('click', nawPlaying);
+
 
 const actorList = document.querySelector('#actors');
 actorList.addEventListener('click', fetchPopularPeople);
