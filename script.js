@@ -232,8 +232,11 @@ const renderActorDetail = (actor) => {
     </div>
     <div class="info">
       <h2>${actor.name}</h2>
+      
+      <p>Gender: ${actor.gender === 1 ? 'Woman' : 'Man'}</p>
       <p>Birthday: ${actor.birthday}</p>
       <p>Biography: ${actor.biography}</p>
+      
     </div>
     
 
@@ -283,6 +286,46 @@ divNavBar.innerHTML = `
 `;
 document.body.prepend(divNavBar);
 
+const createFooter = () => {
+  const footer = document.createElement('footer');
+  footer.innerHTML = `
+            <div class="content">
+            <div class="top">
+              <img src="pics/pirateflix.png" alt="logo" class="footer_logo">
+              <span class="team_name">Straw Hat Pirates</span></div>
+            </div>
+            <div class="media-icons">
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <ul class="box">
+              <li class="link_name">Team</li>
+              <li><a href="#">Ammar Eldik</a></li>
+              <li><a href="#">Esra Akbulat</a></li>
+              <li><a href="#">Helin Toptancı</a></li>
+              <li><a href="#">Selvi Ece Dugan</a></li>     
+            </ul>
+            <ul class="box">
+              <li class="link_name">Languages Used</li>
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>                  
+            </ul>
+              <div class="bottom-details">
+                <div class="bottom_text">
+                  <span class="copyright_text">Copyright © 2022 </span>
+                  <a href="#">StrawHatPirates</a>
+                  <span>All rights reserved</span>
+                  <span class="policy_terms">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                  </span>
+                </div>
+              </div>`;
+
+  document.body.append(footer);
+};
+createFooter();
 //There is the event listener for home button whene you press on it it will refresh the page
 const Home = document.getElementById('home');
 
