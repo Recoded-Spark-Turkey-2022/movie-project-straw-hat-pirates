@@ -1,9 +1,9 @@
 'use strict';
 
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
-const PROFILE_BASE_URL = "http://image.tmdb.org/t/p/w185";
-const BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
-const CONTAINER = document.querySelector(".container");
+const TMDB_BASE_URL = 'https://api.themoviedb.org/3';
+const PROFILE_BASE_URL = 'http://image.tmdb.org/t/p/w185';
+const BACKDROP_BASE_URL = 'http://image.tmdb.org/t/p/w780';
+const CONTAINER = document.querySelector('.container');
 
 // Don't touch this function please
 const autorun = async () => {
@@ -15,7 +15,7 @@ const autorun = async () => {
 // Don't touch this function please
 const constructUrl = (path) => {
   return `${TMDB_BASE_URL}/${path}?api_key=${atob(
-    "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
+    'NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI='
   )}`;
 };
 
@@ -39,16 +39,27 @@ const fetchMovie = async (movieId) => {
   return res.json();
 };
 
+const fetchPopularPeople = async () => {
+  const url = `https://api.themoviedb.org/3/person/popular?api_key=542003918769df50083a13c415bbc602&language=en-US&page=1`;
+  const res = await fetch(url);
+  renderActors(await res.json());
+};
+
+const fetchPerson = async (personId) => {
+  const url = constructUrl(`person/${personId}`);
+  const res = await fetch(url);
+  return res.json();
+};
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
-    const movieDiv = document.createElement("div");
+    const movieDiv = document.createElement('div');
     movieDiv.innerHTML = `
         <img src="${BACKDROP_BASE_URL + movie.backdrop_path}" alt="${
       movie.title
     } poster">
         <h3>${movie.title}</h3>`;
-    movieDiv.addEventListener("click", () => {
+    movieDiv.addEventListener('click', () => {
       movieDetails(movie);
     });
     CONTAINER.appendChild(movieDiv);
@@ -79,7 +90,21 @@ const renderMovie = (movie) => {
     </div>`;
 };
 
-document.addEventListener("DOMContentLoaded", autorun);
+const renderActors = (actors) => {
+  const myactors = actors.results;
+  CONTAINER.innerHTML = '';
+  console.log(myactors);
+  myactors.map((actor) => {
+    const actorsDiv = document.createElement('div');
+    actorsDiv.innerHTML = `
+  <div>${actor.name}</div>
+  `;
+
+    CONTAINER.appendChild(actorsDiv);
+  });
+};
+
+document.addEventListener('DOMContentLoaded', autorun);
 //There is the navebar it is done  and the  dropdown list it is done but we ned to add some details
 const divNavBar = document.createElement('div');
 divNavBar.innerHTML = `
@@ -99,13 +124,6 @@ divNavBar.innerHTML = `
 </ul> 
      </li>
      <li id='actors' > <a href= "#">Actor List </a>
-     <ul class="dropdown">
-     <li id='li1'> <a href= "#"> </a> </li>
-     <li id='li1'> <a href= "#"> </a> </li>
-     <li id='li1'> <a href= "#"> </a> </li>
-     <li id='li1'> <a href= "#"> </a> </li>
-     <li id='li1'> <a href= "#"> </a> </li>
- </ul> 
      </li>
      <li> <a href= "#">About</a> </li>
      <li id='filter'> 
@@ -127,9 +145,15 @@ divNavBar.innerHTML = `
   </nav>
  </div>
 </header>
-`
+`;
 document.body.prepend(divNavBar);
 
-//There is the event listener for home button whene you press on it it will refresh the page 
+//There is the event listener for home button whene you press on it it will refresh the page
 const Home = document.getElementById('home');
-Home.addEventListener('click',function(){location.reload()} );
+Home.addEventListener('click', function () {
+  location.reload();
+});
+
+//There is the event listener for actors button
+const Actors = document.querySelector('#actors');
+Actors.addEventListener('click', fetchPopularPeople);
