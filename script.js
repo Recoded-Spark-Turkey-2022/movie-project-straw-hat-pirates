@@ -24,6 +24,10 @@ const movieDetails = async (movie) => {
   const movieRes = await fetchMovie(movie.id);
   renderMovie(movieRes);
 };
+const actorDetails = async (actor) => {
+  const actorRes = await fetchPopularActor(actor.id);
+  renderActorDetail(actorRes);
+};
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
@@ -39,6 +43,11 @@ const fetchMovie = async (movieId) => {
   return res.json();
 };
 
+const fetchPopularActor = async (actorId) => {
+  const url = `https://api.themoviedb.org/3/person/${actorId}?api_key=542003918769df50083a13c415bbc602&language=en-US&page=1`;
+  const res = await fetch(url);
+  return res.json();
+};
 const fetchPopularPeople = async () => {
   const url = `https://api.themoviedb.org/3/person/popular?api_key=542003918769df50083a13c415bbc602&language=en-US&page=1`;
   const res = await fetch(url);
@@ -93,17 +102,38 @@ const renderMovie = (movie) => {
 const renderActors = (actors) => {
   const myactors = actors.results;
   CONTAINER.innerHTML = '';
-  console.log(myactors);
+  CONTAINER.classList.add('container');
+  console.log(myactors, 'gg');
   myactors.map((actor) => {
     const actorsDiv = document.createElement('div');
+    actorsDiv.classList.add('actorContainer');
     actorsDiv.innerHTML = `
-  <div>${actor.name}</div>
+    
+    <h4>${actor.name}</h4>
+    <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="" />
+
   `;
+    actorsDiv.addEventListener('click', () => {
+      actorDetails(actor);
+    });
 
     CONTAINER.appendChild(actorsDiv);
   });
 };
+const renderActorDetail = (actor) => {
+  CONTAINER.innerHTML = '';
+  CONTAINER.classList.add('container');
+  const actorDiv = document.createElement('div');
+  actorDiv.classList.add('actorDiv');
+  actorDiv.innerHTML = `
+    
+    <h4>${actor.name}</h4>
+    <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="" />
 
+  `;
+
+  CONTAINER.appendChild(actorDiv);
+};
 document.addEventListener('DOMContentLoaded', autorun);
 //There is the navebar it is done  and the  dropdown list it is done but we ned to add some details
 const divNavBar = document.createElement('div');
