@@ -29,32 +29,31 @@ const actorDetails = async (actor) => {
   renderActorDetail(actorRes);
 };
 
-
 const fetchPopularMovies = async () => {
   const url = constructUrl(`movie/popular`);
   const res = await fetch(url);
   const data = await res.json();
-  renderpopularmovies(data.results)
+  renderpopularmovies(data.results);
   //console.log(data.results);
-}
+};
 
-const renderpopularmovies = (movies) =>{
-  CONTAINER.innerHTML= ""
-  movies.map((movie)=>
-  {const movies = document.createElement("div");
- console.log(movie);
-  movies.innerHTML = `
+const renderpopularmovies = (movies) => {
+  CONTAINER.innerHTML = '';
+  movies.map((movie) => {
+    const movies = document.createElement('div');
+    console.log(movie);
+    movies.innerHTML = `
   <div>
   <img src="${BACKDROP_BASE_URL + movie.backdrop_path}">
   </div>
   <h3>${movie.title}</h3>
-  `
-  movies.addEventListener("click", () => {
-    movieDetails(movie);
+  `;
+    movies.addEventListener('click', () => {
+      movieDetails(movie);
+    });
+    CONTAINER.appendChild(movies);
   });
-  CONTAINER.appendChild(movies);
-  })
-}
+};
 
 const topMovie = async () => {
   const url = constructUrl(`movie/top_rated`);
@@ -62,26 +61,26 @@ const topMovie = async () => {
   const data = await res.json();
   rendTopmovies(data.results);
   //console.log(data.results);
-}
+};
 
-const rendTopmovies = (movies) =>{
-  CONTAINER.innerHTML= ""
-  movies.map((movie)=>
-  {const movies = document.createElement("div");
- //console.log(movie);
-  movies.innerHTML = `
+const rendTopmovies = (movies) => {
+  CONTAINER.innerHTML = '';
+  movies.map((movie) => {
+    const movies = document.createElement('div');
+    //console.log(movie);
+    movies.innerHTML = `
   <div>
   <img src="${BACKDROP_BASE_URL + movie.backdrop_path}">
   </div>
   <h3>${movie.title}</h3>
   
   `;
-  movies.addEventListener("click", () => {
-    movieDetails(movie);
+    movies.addEventListener('click', () => {
+      movieDetails(movie);
+    });
+    CONTAINER.appendChild(movies);
   });
-  CONTAINER.appendChild(movies);
-  })
-}
+};
 
 const upComing = async () => {
   const url = constructUrl(`movie/upcoming`);
@@ -89,23 +88,23 @@ const upComing = async () => {
   const data = await res.json();
   rendTopmovies(data.results);
   //console.log(data.results);
-}
+};
 
 const upComingMovies = (movies) => {
-  CONTAINER.innerHTML=""
-  movies.map((movie)=> 
-  {const movies = document.createElement("div");
-  movies.innerHTML = `
+  CONTAINER.innerHTML = '';
+  movies.map((movie) => {
+    const movies = document.createElement('div');
+    movies.innerHTML = `
   <div>
   <img src="${BACKDROP_BASE_URL + movie.backdrop_path}">
   </div>
   <h3>${movie.title}</h3>
   `;
-  movies.addEventListener("click", () => {
-    movieDetails(movie);
+    movies.addEventListener('click', () => {
+      movieDetails(movie);
+    });
   });
-}
-  )}
+};
 
 const nawPlaying = async () => {
   const url = constructUrl(`movie/now_playing`);
@@ -113,24 +112,23 @@ const nawPlaying = async () => {
   const data = await res.json();
   rendTopmovies(data.results);
   //console.log(data.results);
-}
+};
 
 const nowplaying = (movies) => {
-  CONTAINER.innerHTML=""
-  movies.map((movie)=> 
-  {const movies = document.createElement("div");
-  movies.innerHTML = `
+  CONTAINER.innerHTML = '';
+  movies.map((movie) => {
+    const movies = document.createElement('div');
+    movies.innerHTML = `
   <div>
   <img src="${BACKDROP_BASE_URL + movie.backdrop_path}">
   </div>
   <h3>${movie.title}</h3>
   `;
-  movies.addEventListener("click", () => {
-    movieDetails(movie);
+    movies.addEventListener('click', () => {
+      movieDetails(movie);
+    });
   });
-}
-  )}
-
+};
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
 const fetchMovies = async () => {
@@ -176,7 +174,6 @@ const renderMovies = (movies) => {
     });
     CONTAINER.appendChild(movieDiv);
   });
-
 };
 
 // You'll need to play with this function in order to add features and enhance the style.
@@ -230,9 +227,15 @@ const renderActorDetail = (actor) => {
   const actorDiv = document.createElement('div');
   actorDiv.classList.add('actorDiv');
   actorDiv.innerHTML = `
+    <div class="profile">
+      <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="" />
+    </div>
+    <div class="info">
+      <h2>${actor.name}</h2>
+      <p>Birthday: ${actor.birthday}</p>
+      <p>Biography: ${actor.biography}</p>
+    </div>
     
-    <h4>${actor.name}</h4>
-    <img src="${BACKDROP_BASE_URL + actor.profile_path}" alt="" />
 
   `;
 
@@ -285,16 +288,21 @@ document.body.prepend(divNavBar);
 //There is the event listener for home button whene you press on it it will refresh the page
 const Home = document.getElementById('home');
 
-Home.addEventListener('click',function(){location.reload()} );
+Home.addEventListener('click', function () {
+  location.reload();
+});
 
-const pop = document.getElementById("pop");
-pop.addEventListener('click',fetchPopularMovies);
+const pop = document.getElementById('pop');
+pop.addEventListener('click', fetchPopularMovies);
 
-const topmovie = document.getElementById("top_movie");
-top_movie.addEventListener('click',topMovie); 
+const topmovie = document.getElementById('top_movie');
+top_movie.addEventListener('click', topMovie);
 
-const moviesUpComing = document.getElementById("up");
-up.addEventListener('click',upComing); 
+const moviesUpComing = document.getElementById('up');
+up.addEventListener('click', upComing);
 
-const nawplAying = document.getElementById("naw");
-naw.addEventListener('click',nawPlaying);
+const nawplAying = document.getElementById('naw');
+naw.addEventListener('click', nawPlaying);
+
+const actorList = document.querySelector('#actors');
+actorList.addEventListener('click', fetchPopularPeople);
