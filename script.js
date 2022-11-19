@@ -29,9 +29,8 @@ const fetchPopularMovies = async () => {
   const res = await fetch(url);
   const data = await res.json();
 
-  renderpopularmovies(data.results)
-}
-
+  renderpopularmovies(data.results);
+};
 
 const renderpopularmovies = (movies) => {
   CONTAINER.innerHTML = '';
@@ -85,10 +84,7 @@ const upComing = async () => {
   const res = await fetch(url);
   const data = await res.json();
   rendTopmovies(data.results);
-
-
-}
-
+};
 
 const upComingMovies = (movies) => {
   CONTAINER.innerHTML = '';
@@ -111,9 +107,7 @@ const nawPlaying = async () => {
   const res = await fetch(url);
   const data = await res.json();
   rendTopmovies(data.results);
-
-}
-
+};
 
 const nowplaying = (movies) => {
   CONTAINER.innerHTML = '';
@@ -129,6 +123,10 @@ const nowplaying = (movies) => {
       movieDetails(movie);
     });
   });
+};
+const actorDetails = async (actor) => {
+  const actorRes = await fetchPopularActor(actor.id);
+  renderActorDetail(actorRes);
 };
 
 // This function is to fetch movies. You may need to add it or change some part in it in order to apply some of the features.
@@ -156,11 +154,11 @@ const fetchPopularPeople = async () => {
   renderActors(await res.json());
 };
 
-const fetchPerson = async (personId) => {
-  const url = constructUrl(`person/${personId}`);
-  const res = await fetch(url);
-  return res.json();
-};
+// const fetchPerson = async (personId) => {
+//   const url = constructUrl(`person/${personId}`);
+//   const res = await fetch(url);
+//   return res.json();
+// };
 // You'll need to play with this function in order to add features and enhance the style.
 const renderMovies = (movies) => {
   movies.map((movie) => {
@@ -223,6 +221,7 @@ const renderActors = (actors) => {
   });
 };
 const renderActorDetail = (actor) => {
+  console.log(actor);
   CONTAINER.innerHTML = '';
   CONTAINER.classList.add('container');
   const actorDiv = document.createElement('div');
@@ -233,8 +232,11 @@ const renderActorDetail = (actor) => {
     </div>
     <div class="info">
       <h2>${actor.name}</h2>
+      
+      <p>Gender: ${actor.gender === 1 ? 'Woman' : 'Man'}</p>
       <p>Birthday: ${actor.birthday}</p>
       <p>Biography: ${actor.biography}</p>
+      
     </div>
     
 
@@ -284,6 +286,46 @@ divNavBar.innerHTML = `
 `;
 document.body.prepend(divNavBar);
 
+const createFooter = () => {
+  const footer = document.createElement('footer');
+  footer.innerHTML = `
+            <div class="content">
+            <div class="top">
+              <img src="pics/pirateflix.png" alt="logo" class="footer_logo">
+              <span class="team_name">Straw Hat Pirates</span></div>
+            </div>
+            <div class="media-icons">
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <ul class="box">
+              <li class="link_name">Team</li>
+              <li><a href="#">Ammar Eldik</a></li>
+              <li><a href="#">Esra Akbulat</a></li>
+              <li><a href="#">Helin Toptancı</a></li>
+              <li><a href="#">Selvi Ece Dugan</a></li>     
+            </ul>
+            <ul class="box">
+              <li class="link_name">Languages Used</li>
+              <li><a href="#">HTML</a></li>
+              <li><a href="#">CSS</a></li>
+              <li><a href="#">JavaScript</a></li>                  
+            </ul>
+              <div class="bottom-details">
+                <div class="bottom_text">
+                  <span class="copyright_text">Copyright © 2022 </span>
+                  <a href="#">StrawHatPirates</a>
+                  <span>All rights reserved</span>
+                  <span class="policy_terms">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                  </span>
+                </div>
+              </div>`;
+
+  document.body.append(footer);
+};
+createFooter();
 //There is the event listener for home button whene you press on it it will refresh the page
 const Home = document.getElementById('home');
 
@@ -302,7 +344,6 @@ up.addEventListener('click', upComing);
 
 const nawplAying = document.getElementById('naw');
 naw.addEventListener('click', nawPlaying);
-
 
 const actorList = document.querySelector('#actors');
 actorList.addEventListener('click', fetchPopularPeople);

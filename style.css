@@ -210,3 +210,41 @@ img:hover {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
+footer {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 2200px;
+  align-items: center;
+  justify-content: space-around;
+  color: #fff;
+  background-color: #000;
+  width: 100vw;
+  padding-top: 10px;
+}
+
+.footer_logo {
+  width: 100px;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-details {
+  width: 300px;
+  text-align: center;
+}
+.bottom_text {
+  display: flex;
+  flex-direction: column;
+}
+.box {
+  list-style: none;
+  text-align: center;
+}
