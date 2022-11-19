@@ -178,6 +178,8 @@ divNavBar.innerHTML = `
 `;
 document.body.prepend(divNavBar);
 
+//There is the event listener for home button whene you press on it it will refresh the page
+const Home = document.getElementById('home');
 Home.addEventListener('click', function () {
   location.reload();
 });
