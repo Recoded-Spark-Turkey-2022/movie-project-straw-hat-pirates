@@ -9,7 +9,6 @@ const CONTAINER = document.querySelector(".container");
 const autorun = async () => {
   const movies = await fetchMovies();
   renderMovies(movies.results);
-  //console.log(movies)
 };
 
 // Don't touch this function please
@@ -26,12 +25,37 @@ const movieDetails = async (movie) => {
 };
 
 
+const getGenre = async () => {
+  const dropDownlist = document.querySelector("#filter")
+  const url = constructUrl("genre/movie/list");
+  const res = await fetch(url);
+  const data = await res.json();
+  
+data.genres.forEach(element => {
+  const genreLink = document.createElement("a");
+  genreLink.textContent = element.name
+  genreLink.classList.add("genre")
+  dropDownlist.appendChild(genreLink);
+
+   
+genreLink.addEventListener("click", () => {
+  fetch(`${TMDB_BASE_URL}/discover/movie?api_key=${atob(
+  "NTQyMDAzOTE4NzY5ZGY1MDA4M2ExM2M0MTViYmM2MDI="
+  )}&with_genres=${element.id}`)
+  .then(resp => resp.json())
+  .then(data => renderMovies(data.results))
+})
+
+});
+
+};
+getGenre();
+
 const fetchPopularMovies = async () => {
   const url = constructUrl(`movie/popular`);
   const res = await fetch(url);
   const data = await res.json();
   renderpopularmovies(data.results)
-  //console.log(data.results);
 }
 
 const renderpopularmovies = (movies) =>{
@@ -57,14 +81,12 @@ const topMovie = async () => {
   const res = await fetch(url);
   const data = await res.json();
   rendTopmovies(data.results);
-  //console.log(data.results);
 }
 
 const rendTopmovies = (movies) =>{
   CONTAINER.innerHTML= ""
   movies.map((movie)=>
   {const movies = document.createElement("div");
- //console.log(movie);
   movies.innerHTML = `
   <div>
   <img src="${BACKDROP_BASE_URL + movie.backdrop_path}">
@@ -84,7 +106,6 @@ const upComing = async () => {
   const res = await fetch(url);
   const data = await res.json();
   rendTopmovies(data.results);
-  //console.log(data.results);
 }
 
 const upComingMovies = (movies) => {
@@ -108,7 +129,6 @@ const nawPlaying = async () => {
   const res = await fetch(url);
   const data = await res.json();
   rendTopmovies(data.results);
-  //console.log(data.results);
 }
 
 const nowplaying = (movies) => {
@@ -202,26 +222,9 @@ divNavBar.innerHTML = `
     
 </ul> 
      </li>
-     <li id='actors' > <a href= "#">Actor List </a>
-     <ul class="dropdown">
-     <li id='li1'> <a href= "#"> </a> </li>
-     <li id='li1'> <a href= "#"> </a> </li>
-     <li id='li1'> <a href= "#"> </a> </li>
-     <li id='li1'> <a href= "#"> </a> </li>
-     <li id='li1'> <a href= "#"> </a> </li>
- </ul> 
-     </li>
+     <li id='actors' > <a href= "#">Actor List </a></li>
      <li> <a href= "#">About</a> </li>
-     <li id='filter'> 
-     <a href= "#">Filter</a> 
-      <ul class="dropdown">
-      <li id='li1'> <a href= "#"> </a> </li>
-      <li id='li1'> <a href= "#"> </a> </li>
-      <li id='li1'> <a href= "#"> </a> </li>
-      <li id='li1'> <a href= "#"> </a> </li>
-      <li id='li1'> <a href= "#"> </a> </li>
- </ul>
- </li>
+     <li id='filter'> <a href="#"> genra </a> </li>
      <li> <form id="form">
         <input type="text" placeholder="search" id="search"
         class="search">
